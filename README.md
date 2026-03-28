@@ -93,4 +93,4 @@ REACT_APP_API_BASE_URL=http://localhost:5000/api
 
 ## License
 
-MIT © TicketKati 2024
+MIT © TicketKati 2026
