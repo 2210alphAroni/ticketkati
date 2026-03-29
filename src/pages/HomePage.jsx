@@ -80,7 +80,7 @@ const HomePage = () => {
             style={{ animationDelay: "0.2s" }}
           >
             Book bus tickets across Bangladesh with ease.
-            <br />8 premium bus services. Real-time tracking. Instant PDF
+            <br />Real-time tracking. Instant PDF
             tickets.
           </p>
 

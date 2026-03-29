@@ -8,15 +8,18 @@ const Footer = () => {
       <div className="container">
         <div className="footer__grid">
           <div className="footer__brand">
-            <div className="footer__logo">🎫 Ticket<span>Kati</span></div>
+            <div className="footer__logo">
+              🎫 Ticket<span>Kati</span>
+            </div>
             <p className="footer__tagline">
-              বাংলাদেশের সেরা বাস টিকেট বুকিং সিস্টেম।<br/>
+              বাংলাদেশের সেরা বাস টিকেট বুকিং সিস্টেম।
+              <br />
               Trusted by thousands of travelers daily.
             </p>
             <div className="footer__socials">
-              <a href="#" className="footer__social">FB</a>
+              {/* <a href="#" className="footer__social">FB</a>
               <a href="#" className="footer__social">TW</a>
-              <a href="#" className="footer__social">IG</a>
+              <a href="#" className="footer__social">IG</a> */}
             </div>
           </div>
 
@@ -40,20 +43,53 @@ const Footer = () => {
 
           <div className="footer__col">
             <h4>Support</h4>
-            <span>📞 Hotline: 16XXX</span>
-            <span>✉️ support@ticketkati.com</span>
+            <a href="tel:01608203690">📞 Hotline: 01608203690</a>
+            <a
+              href="https://wa.me/8801727687830"
+              target="_blank"
+              rel="noreferrer"
+            >
+              💬 WhatsApp: 01727687830
+            </a>
+            <a href="mailto:support@ticketkati.com">
+              ✉️ support@ticketkati.com
+            </a>
             <span>⏰ 24/7 Customer Service</span>
-            <span>📍 Dhaka, Bangladesh</span>
           </div>
         </div>
 
         <div className="footer__bottom">
-          <p>© 2026 TicketKati. All rights reserved. Developed by:<a href="https://roniportfolio.onrender.com" target='_blank'>Nabinur Islam Roni</a></p>
+          <p>
+            © 2026 TicketKati. All rights reserved. Developed by:
+            <a href="https://roniportfolio.onrender.com" target="_blank">
+              Nabinur Islam Roni
+            </a>
+          </p>
           <div className="footer__payment-logos">
-            <span className="footer__pay-badge" style={{background:'#E2136E'}}>bKash</span>
-            <span className="footer__pay-badge" style={{background:'#F7941D'}}>Nagad</span>
-            <span className="footer__pay-badge" style={{background:'#8B1A8B'}}>Rocket</span>
-            <span className="footer__pay-badge" style={{background:'#2563EB'}}>SSL</span>
+            <span
+              className="footer__pay-badge"
+              style={{ background: "#E2136E" }}
+            >
+              bKash
+            </span>
+            <span
+              className="footer__pay-badge"
+              style={{ background: "#F7941D" }}
+            >
+              Nagad
+            </span>
+            <span
+              className="footer__pay-badge"
+              style={{ background: "#8B1A8B" }}
+            >
+              Rocket
+            </span>
+            <span
+              className="footer__pay-badge"
+              style={{ background: "#2563EB" }}
+            >
+              SSL
+            </span>
           </div>
         </div>
       </div>

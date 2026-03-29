@@ -440,9 +440,44 @@
 @media (max-width: 600px) {
   .bus-card {
     grid-template-columns: 1fr;
+    padding: 16px;
+    gap: 12px;
   }
-  .bus-card__right { align-items: flex-start; text-align: left; }
   .bus-card__left { grid-column: 1; }
+  .bus-card__route {
+    grid-column: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .bus-card__arrow-line { display: none; }
+  .bus-card__place--right { align-items: flex-start; text-align: left; }
+  .bus-card__schedules { grid-column: 1; }
+  .bus-card__amenities { grid-column: 1; }
+  .bus-card__right {
+    grid-column: 1;
+    align-items: stretch;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    align-items: center;
+  }
+  .bus-card__price { font-size: 24px; }
+  .bus-card__per { font-size: 11px; }
+  .bus-card__seats { grid-column: 1 / -1; }
+  .bus-card__book {
+    grid-column: 1 / -1;
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+  }
+  .bus-card__track {
+    grid-column: 1 / -1;
+    width: 100%;
+    text-align: center;
+  }
   .inline-search__fields { flex-direction: column; }
   .inline-search__fields .btn { width: 100%; }
+  .bus-tracker__info { flex-direction: column; gap: 6px; }
 }
