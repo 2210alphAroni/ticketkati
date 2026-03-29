@@ -66,19 +66,29 @@ const HomePage = () => {
             🇧🇩 Bangladesh's #1 Bus Booking Platform
           </div>
 
-          <h1 className="hero__title animate-fade" style={{animationDelay:'0.1s'}}>
+          <h1
+            className="hero__title animate-fade"
+            style={{ animationDelay: "0.1s" }}
+          >
             <span className="hero__title-accent">Ticket</span>Kati
             <br />
             <span className="hero__title-sub">বাসের টিকেট, এখনই কাটুন</span>
           </h1>
 
-          <p className="hero__desc animate-fade" style={{animationDelay:'0.2s'}}>
-            Book bus tickets across Bangladesh with ease.<br />
-            8 premium bus services. Real-time tracking. Instant PDF tickets.
+          <p
+            className="hero__desc animate-fade"
+            style={{ animationDelay: "0.2s" }}
+          >
+            Book bus tickets across Bangladesh with ease.
+            <br />8 premium bus services. Real-time tracking. Instant PDF
+            tickets.
           </p>
 
           {/* Search Card */}
-          <div className="search-card animate-fade" style={{animationDelay:'0.3s'}}>
+          <div
+            className="search-card animate-fade"
+            style={{ animationDelay: "0.3s" }}
+          >
             <div className="search-card__header">
               <span>🔍</span> Find Your Bus
             </div>
@@ -93,18 +103,31 @@ const HomePage = () => {
                     <select
                       className="form-input search-select"
                       value={form.from}
-                      onChange={e => setForm(p => ({ ...p, from: e.target.value }))}
+                      onChange={(e) =>
+                        setForm((p) => ({ ...p, from: e.target.value }))
+                      }
                     >
                       <option value="">Select origin</option>
-                      {PLACES.map(p => (
-                        <option key={p.id} value={p.id}>{p.name}</option>
+                      {PLACES.map((place) => (
+                        <optgroup key={place.id} label={place.name}>
+                          {place.subLocations.map((sub) => (
+                            <option key={sub.id} value={sub.id}>
+                              {sub.name}
+                            </option>
+                          ))}
+                        </optgroup>
                       ))}
                     </select>
                   </div>
                 </div>
 
                 {/* Swap */}
-                <button type="button" className="swap-btn" onClick={swapPlaces} title="Swap">
+                <button
+                  type="button"
+                  className="swap-btn"
+                  onClick={swapPlaces}
+                  title="Swap"
+                >
                   ⇄
                 </button>
 
@@ -116,11 +139,19 @@ const HomePage = () => {
                     <select
                       className="form-input search-select"
                       value={form.to}
-                      onChange={e => setForm(p => ({ ...p, to: e.target.value }))}
+                      onChange={(e) =>
+                        setForm((p) => ({ ...p, to: e.target.value }))
+                      }
                     >
                       <option value="">Select destination</option>
-                      {PLACES.map(p => (
-                        <option key={p.id} value={p.id}>{p.name}</option>
+                      {PLACES.map((place) => (
+                        <optgroup key={place.id} label={place.name}>
+                          {place.subLocations.map((sub) => (
+                            <option key={sub.id} value={sub.id}>
+                              {sub.name}
+                            </option>
+                          ))}
+                        </optgroup>
                       ))}
                     </select>
                   </div>
@@ -136,7 +167,9 @@ const HomePage = () => {
                       className="form-input search-select"
                       value={form.date}
                       min={today}
-                      onChange={e => setForm(p => ({ ...p, date: e.target.value }))}
+                      onChange={(e) =>
+                        setForm((p) => ({ ...p, date: e.target.value }))
+                      }
                     />
                   </div>
                 </div>
@@ -149,9 +182,18 @@ const HomePage = () => {
                     <select
                       className="form-input search-select"
                       value={form.passengers}
-                      onChange={e => setForm(p => ({ ...p, passengers: parseInt(e.target.value) }))}
+                      onChange={(e) =>
+                        setForm((p) => ({
+                          ...p,
+                          passengers: parseInt(e.target.value),
+                        }))
+                      }
                     >
-                      {[1,2,3,4,5,6].map(n => <option key={n} value={n}>{n} Seat{n > 1 ? 's' : ''}</option>)}
+                      {[1, 2, 3, 4, 5, 6].map((n) => (
+                        <option key={n} value={n}>
+                          {n} Seat{n > 1 ? "s" : ""}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -170,11 +212,17 @@ const HomePage = () => {
         <div className="container">
           <div className="section-header">
             <h2 className="section-title">Popular Routes</h2>
-            <p className="section-subtitle">Most booked routes across Bangladesh</p>
+            <p className="section-subtitle">
+              Most booked routes across Bangladesh
+            </p>
           </div>
           <div className="routes-grid">
             {POPULAR_ROUTES.map((route, i) => (
-              <div key={i} className="route-card" onClick={() => setRoute(route)}>
+              <div
+                key={i}
+                className="route-card"
+                onClick={() => setRoute(route)}
+              >
                 <div className="route-card__label">{route.label}</div>
                 <div className="route-card__meta">
                   <span className="route-card__time">⏱ {route.time}</span>
@@ -192,7 +240,9 @@ const HomePage = () => {
         <div className="container">
           <div className="section-header">
             <h2 className="section-title">Why TicketKati?</h2>
-            <p className="section-subtitle">The smart way to book bus tickets in Bangladesh</p>
+            <p className="section-subtitle">
+              The smart way to book bus tickets in Bangladesh
+            </p>
           </div>
           <div className="features-grid">
             {FEATURES.map((f, i) => (
@@ -214,9 +264,27 @@ const HomePage = () => {
           </div>
           <div className="bus-marquee">
             <div className="bus-marquee__track">
-              {['Drutogami', 'Rajib Paribahan', 'Hanif Enterprise', 'Bhuyapuri', 'Sirajganj Travel', 'Lalmonirhat Express', 'Comilla Travel', "Cox's Bazar Sleeper",
-                'Drutogami', 'Rajib Paribahan', 'Hanif Enterprise', 'Bhuyapuri', 'Sirajganj Travel', 'Lalmonirhat Express', 'Comilla Travel', "Cox's Bazar Sleeper"].map((b, i) => (
-                <span key={i} className="bus-chip">🚌 {b}</span>
+              {[
+                "Drutogami",
+                "Rajib Paribahan",
+                "Hanif Enterprise",
+                "Bhuyapuri",
+                "Sirajganj Travel",
+                "Lalmonirhat Express",
+                "Comilla Travel",
+                "Cox's Bazar Sleeper",
+                "Drutogami",
+                "Rajib Paribahan",
+                "Hanif Enterprise",
+                "Bhuyapuri",
+                "Sirajganj Travel",
+                "Lalmonirhat Express",
+                "Comilla Travel",
+                "Cox's Bazar Sleeper",
+              ].map((b, i) => (
+                <span key={i} className="bus-chip">
+                  🚌 {b}
+                </span>
               ))}
             </div>
           </div>
@@ -231,10 +299,16 @@ const HomePage = () => {
               <h2>Ready to book your journey?</h2>
               <p>Join 50,000+ travelers who trust TicketKati every day</p>
               <div className="cta-card__btns">
-                <button className="btn btn-primary" onClick={() => navigate('/search')}>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => navigate("/search")}
+                >
                   🔍 Search Buses
                 </button>
-                <button className="btn btn-outline" onClick={() => navigate('/register')}>
+                <button
+                  className="btn btn-outline"
+                  onClick={() => navigate("/register")}
+                >
                   ✍️ Create Account
                 </button>
               </div>

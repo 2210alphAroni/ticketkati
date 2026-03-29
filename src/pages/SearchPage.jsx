@@ -25,19 +25,28 @@ const SearchPage = () => {
     }
   }, []);
 
-  const doSearch = (params) => {
-    setLoading(true);
-    setSearched(true);
-    setTimeout(() => {
-      const found = BUSES.filter(bus =>
-        bus.routes.includes(params.from) && bus.routes.includes(params.to)
-      );
-      setResults(found);
-      setLoading(false);
-      if (found.length > 0) toast.success(`${found.length} buses found!`);
-      else toast.error('No buses found for this route');
-    }, 700);
-  };
+const getParentId = (subId) => {
+  for (const place of PLACES) {
+    if (place.subLocations.find(s => s.id === subId)) return place.id;
+  }
+  return subId;
+};
+
+const doSearch = (params) => {
+  setLoading(true);
+  setSearched(true);
+  setTimeout(() => {
+    const fromId = getParentId(params.from);
+    const toId = getParentId(params.to);
+    const found = BUSES.filter(bus =>
+      bus.routes.includes(fromId) && bus.routes.includes(toId)
+    );
+    setResults(found);
+    setLoading(false);
+    if (found.length > 0) toast.success(`${found.length} buses found!`);
+    else toast.error('No buses found for this route');
+  }, 700);
+};
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -57,7 +66,13 @@ const SearchPage = () => {
     navigate('/seat-select');
   };
 
-  const getFromName = (id) => PLACES.find(p => p.id === id)?.name || id;
+  const getFromName = (id) => {
+    for (const place of PLACES) {
+      const sub = place.subLocations.find((s) => s.id === id);
+      if (sub) return sub.name;
+    }
+    return id;
+  };
 
   const filteredResults = results
     .filter(b => filterType === 'all' || b.type.toLowerCase().includes(filterType.toLowerCase()))
@@ -78,24 +93,67 @@ const SearchPage = () => {
             <div className="inline-search__fields">
               <div className="form-group">
                 <label className="form-label">From</label>
-                <select className="form-input" value={form.from} onChange={e => setForm(p => ({ ...p, from: e.target.value }))}>
+                <select
+                  className="form-input"
+                  value={form.from}
+                  onChange={(e) =>
+                    setForm((p) => ({ ...p, from: e.target.value }))
+                  }
+                >
                   <option value="">Origin</option>
-                  {PLACES.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+                  {PLACES.map((place) => (
+                    <optgroup key={place.id} label={place.name}>
+                      {place.subLocations.map((sub) => (
+                        <option key={sub.id} value={sub.id}>
+                          {sub.name}
+                        </option>
+                      ))}
+                    </optgroup>
+                  ))}
                 </select>
               </div>
-              <div className="swap-icon" onClick={() => setForm(p => ({ ...p, from: p.to, to: p.from }))}>⇄</div>
+              <div
+                className="swap-icon"
+                onClick={() =>
+                  setForm((p) => ({ ...p, from: p.to, to: p.from }))
+                }
+              >
+                ⇄
+              </div>
               <div className="form-group">
                 <label className="form-label">To</label>
-                <select className="form-input" value={form.to} onChange={e => setForm(p => ({ ...p, to: e.target.value }))}>
+                <select
+                  className="form-input"
+                  value={form.to}
+                  onChange={(e) =>
+                    setForm((p) => ({ ...p, to: e.target.value }))
+                  }
+                >
                   <option value="">Destination</option>
-                  {PLACES.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+                    {PLACES.map(place => (
+                      <optgroup key={place.id} label={place.name}>
+                        {place.subLocations.map(sub => (
+                          <option key={sub.id} value={sub.id}>{sub.name}</option>
+                        ))}
+                      </optgroup>
+                    ))}
                 </select>
               </div>
               <div className="form-group">
                 <label className="form-label">Date</label>
-                <input type="date" className="form-input" value={form.date} min={today} onChange={e => setForm(p => ({ ...p, date: e.target.value }))} />
+                <input
+                  type="date"
+                  className="form-input"
+                  value={form.date}
+                  min={today}
+                  onChange={(e) =>
+                    setForm((p) => ({ ...p, date: e.target.value }))
+                  }
+                />
               </div>
-              <button type="submit" className="btn btn-primary">Search</button>
+              <button type="submit" className="btn btn-primary">
+                Search
+              </button>
             </div>
           </form>
         </div>
@@ -107,15 +165,23 @@ const SearchPage = () => {
           <div className="search-filters">
             <div className="filter-group">
               <span className="filter-label">Bus Type:</span>
-              {['all', 'AC', 'Non-AC', 'Sleeper'].map(t => (
-                <button key={t} className={`filter-btn ${filterType === t ? 'active' : ''}`} onClick={() => setFilterType(t)}>
+              {["all", "AC", "Non-AC", "Sleeper"].map((t) => (
+                <button
+                  key={t}
+                  className={`filter-btn ${filterType === t ? "active" : ""}`}
+                  onClick={() => setFilterType(t)}
+                >
                   {t}
                 </button>
               ))}
             </div>
             <div className="filter-group">
               <span className="filter-label">Sort by:</span>
-              <select className="form-input filter-select" value={sortBy} onChange={e => setSortBy(e.target.value)}>
+              <select
+                className="form-input filter-select"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+              >
                 <option value="price">Price (Low to High)</option>
                 <option value="rating">Rating (High to Low)</option>
               </select>
@@ -133,21 +199,41 @@ const SearchPage = () => {
 
         {!loading && searched && (
           <div className="results-header">
-            {filteredResults.length > 0
-              ? <span className="results-count">{filteredResults.length} bus{filteredResults.length > 1 ? 'es' : ''} found {form.from && form.to ? `· ${getFromName(form.from)} → ${getFromName(form.to)}` : ''} · {form.date}</span>
-              : <span className="results-empty">No buses found. Try a different route.</span>}
+            {filteredResults.length > 0 ? (
+              <span className="results-count">
+                {filteredResults.length} bus
+                {filteredResults.length > 1 ? "es" : ""} found{" "}
+                {form.from && form.to
+                  ? `· ${getFromName(form.from)} → ${getFromName(form.to)}`
+                  : ""}{" "}
+                · {form.date}
+              </span>
+            ) : (
+              <span className="results-empty">
+                No buses found. Try a different route.
+              </span>
+            )}
           </div>
         )}
 
-        {!loading && filteredResults.map(bus => (
-          <BusCard key={bus.id} bus={bus} searchParams={form} onBook={() => handleBook(bus)} />
-        ))}
+        {!loading &&
+          filteredResults.map((bus) => (
+            <BusCard
+              key={bus.id}
+              bus={bus}
+              searchParams={form}
+              onBook={() => handleBook(bus)}
+            />
+          ))}
 
         {!searched && (
           <div className="search-hint">
             <div className="search-hint__icon">🚌</div>
             <h3>Search for your journey</h3>
-            <p>Select your origin, destination and travel date above to find available buses</p>
+            <p>
+              Select your origin, destination and travel date above to find
+              available buses
+            </p>
           </div>
         )}
       </div>
