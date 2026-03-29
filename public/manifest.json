@@ -1,0 +1,27 @@
+{
+  "short_name": "TicketKati",
+  "name": "TicketKati - Bangladesh Bus Ticket",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#E8242A",
+  "background_color": "#0D0D0D",
+  "description": "Bangladesh Bus Ticket Booking System",
+  "orientation": "portrait"
+}
